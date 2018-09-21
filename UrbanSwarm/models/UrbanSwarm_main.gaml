@@ -45,7 +45,7 @@ global {
 	file bound_shapefile <- file(cityGISFolder+"/Bounds.shp");
 	file buildings_shapefile <- file(cityGISFolder+"/Buildings.shp");
 	file roads_shapefile <- file(cityGISFolder+"/Roads.shp");
-	file amenities_shapefile  <- file(cityGISFolder+"/Amenities.shp");
+	file amenities_shapefile  <- file(cityGISFolder+"/amenities.shp");
 	file table_bound_shapefile <- file(cityGISFolder+"/table_bounds.shp");
 	file imageRaster <- file('./../images/gama_black.png') ;
 	geometry shape <- envelope(bound_shapefile);
