@@ -142,7 +142,7 @@ species tagRFID {
 	int distanceToDeposit;
 	
 	aspect realistic{
-		draw circle(1+100*float(max(pheromones)/2)) color:rgb(107,171,158);
+		draw circle(1+10*float(max(pheromones)/2)) color:rgb(107,171,158);
 		//draw imageRFID size:5#m;
 	}
 }
