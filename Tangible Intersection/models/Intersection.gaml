@@ -15,21 +15,56 @@ global{
 	//For UDP communication with Processing App
 	int port <- 6000;
 	string url <- "localhost";
-	graph the_graph;
+	graph the_road;
+	
+	
 	
 	
 	file roads_shapefile <- file("../includes/Intersection.shp");
-	geometry shape <- envelope(roads_shapefile);
+	//geometry shape <- square(500);
+	geometry shape <- envelope(roads_shapefile)+1;
 	point center <- shape.centroid;
 	
 	
 	init{
+		//Creating the graph based on the QGIS version (ANOTHER SOLUTION TO THE PROBLEM)
+		/*** 
+		list<point> nodes <- [];
+		the_road <- spatial_graph([]);
+		
+		//Adding the vertices
+		the_road <- the_road add_node({0,0});
+		the_road <- the_road add_node({0,410});
+		the_road <- the_road add_node({410,410});
+		the_road <- the_road add_node({410,0});
+		
+		the_road <- the_road add_node({20,20});
+		the_road <- the_road add_node({20,390});
+		the_road <- the_road add_node({390,20});
+		the_road <- the_road add_node({390,390});
+		
+		//Adding the edges
+		the_road <- the_road add_edge({0,0}::{0,410});
+		the_road <- the_road add_edge({0,0}::{410,0});
+		the_road <- the_road add_edge({410,410}::{0,410});
+		the_road <- the_road add_edge({410,410}::{410,0});
+		
+		the_road <- the_road add_edge({20,20}::{20,390});
+		the_road <- the_road add_edge({20,20}::{390,20});
+		the_road <- the_road add_edge({390,390}::{20,390});
+		the_road <- the_road add_edge({390,390}::{390,20});
+		***/
+		
+		
+		
+		
+		
 		create toio number: 1{
 			location <- center;
 			//do connect to: url protocol: "udp_emitter" port: port ;
 		}
 		create road from: roads_shapefile;
-		the_graph <- as_edge_graph(road);
+		the_road <- as_edge_graph(road);
 	}
 	
 }
@@ -66,7 +101,8 @@ species toio skills:[moving, network]{
 	
 
 	reflex move{
-		do wander on: the_graph;
+		do wander on: the_road;
+		//do goto target:{0,300} on:the_road;
 	}
 
 	
@@ -82,12 +118,13 @@ species toio skills:[moving, network]{
 experiment simple_movement type:gui{
 	float minimum_cycle_duration <- 0.05;
 	output{
-		display view type:opengl{
+		display view{
+			
 			
 			//There is a bug with the image not shwoing the toio all the time. FIX!!!
 			image "../includes/Roads.png";
 			species toio aspect: body;
 			species road aspect: base;
-		}
+        }
 	}
 }
