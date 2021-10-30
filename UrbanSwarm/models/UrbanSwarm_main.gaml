@@ -668,10 +668,10 @@ experiment selfOrganizedGarbageCollectionVisual type: gui {
 experiment pheromoneExploitationGarbageCollectionVisual type: gui {
 	
 	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1 init:2;
-	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0 max: 0.5 step: 0.1 init:0.03;
+	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0.0 max: 0.5 step: 0.1 init:0.03;
 	parameter "EvaporatioRate" var: evaporation min: 0.01 max: 1.0 step: 0.01 init:0.3;
-	parameter "exploitationRate" var: exploratoryRate min: 0.0 max: 1 step: 0.1 init:0.99;
-	parameter "maxTrashPerBin" var: maxTrash min: 1.0 max: 120.0 step: 1.0 init:121;
+	parameter "exploitationRate" var: exploratoryRate min: 0.0 max: 1.0 step: 0.1 init:0.99;
+	parameter "maxTrashPerBin" var: maxTrash min: 1.0 max: 120.0 step: 1.0 init:121.0;
 	parameter "carriableTrashAmount" var: carriableTrashAmount min: 3 max: 30 step: 3 init:12;
 		
 	output {
