@@ -396,8 +396,8 @@ global {
 	      cityMatrixData <- json_file("../includes/cityIO_Kendall.json").contents;
 	    }	
 		cityMatrixCell <- cityMatrixData["grid"];
-		density_array <- cityMatrixData["objects"]["density"];
-		toggle1 <- int(cityMatrixData["objects"]["toggle1"]);	
+		density_array <- list<float>(map(cityMatrixData["objects"])["density"]);
+		toggle1 <- int(map(cityMatrixData["objects"])["toggle1"]);	
 		loop l over: cityMatrixCell { 
 		      create amenity {
 		      	  id <-int(l["type"]);
@@ -422,7 +422,7 @@ global {
           }
         }
 		cityMatrixData <- json_file(cityIOUrl).contents;
-		density_array <- cityMatrixData["objects"]["density"];
+		density_array <- map(cityMatrixData["objects"])["density"];
 		
 		if(cycle>10 and dynamicPop =true){
 		if(current_density_array[0] < density_array[0]){
