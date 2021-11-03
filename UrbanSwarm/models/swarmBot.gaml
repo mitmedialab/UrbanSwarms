@@ -207,7 +207,9 @@ species robot skills:[moving] {
 
 	action updatePheromones{
 		list<tagRFID>closeTag <- tagRFID at_distance 1;
-		ask closeTag closest_to(self){
+		if not empty(closeTag) {
+			ask closeTag closest_to(self){
+			
 			loop j from:0 to: (length(self.pheromonesToward)-1) {					
 							
 							self.pheromones[j] <- self.pheromones[j] + myself.pheromoneToDiffuse - (singlePheromoneMark * evaporation * (cycle - self.lastUpdate));					
@@ -230,6 +232,8 @@ species robot skills:[moving] {
 				// Update tagRFID and pheromoneToDiffuse
 				self.lastUpdate <- cycle;				
 				myself.pheromoneToDiffuse <- max(self.pheromones)*diffusion;
+			}
+		
 		}
 		
 		ask pheromoneRoad closest_to(self){	
@@ -256,7 +260,8 @@ species robot skills:[moving] {
 			//collision avoidance time
 				do updatePheromones;
 			//If there is enough battery and trash, carry it!
-			list<trashBin> closeTrashBin <- trashBin at_distance 50;
+		 	list<trashBin> closeTrashBin <- trashBin at_distance 50;
+		 	if (not empty(closeTrashBin)) {
 			//ask closeTrashBin closest_to(self) {		
 			ask closeTrashBin with_max_of(each.trash){		
 				
@@ -271,6 +276,8 @@ species robot skills:[moving] {
 						myself.lowBattery <- true;
 					}
 				}	
+			}
+			
 			}
 		}
 		else{				
