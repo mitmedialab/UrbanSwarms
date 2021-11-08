@@ -12,11 +12,8 @@ global{
 	int robotNum <- 1 min: 1 max: 100 parameter: "Nb Vehicle:" category: "Initial";		
 	
 	//Makes the cycles longer
-	float minimum_cycle_duration <- 0.02;
-	
-	//Cylce length agringard is the github I need to add
-	float step <- 10 #sec;
-	
+	float minimum_cycle_duration <- 10.0 #sec;
+		
 	//Time offset for when to start the day
 	int time_offset <- 6 parameter: "Start Time:" category: "Initial";
 	

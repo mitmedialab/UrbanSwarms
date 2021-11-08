@@ -1,7 +1,5 @@
 /**
- *  theCity
- *  Author: alfeo
- *  Description: 
+ *  SwarmBot
  */
 
 model swarmBot
