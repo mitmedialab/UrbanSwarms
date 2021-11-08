@@ -628,7 +628,7 @@ species barrel parent:Litter{
 }
 
 experiment selfOrganizedGarbageCollection type: gui {
-	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1;
+	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1 init:1;
 	parameter "AdditionalTrashBin" var: additionalTrashBin min: 0 max: 100 step: 2;
 	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0.01 max: 0.01 step: 0.1;
 	parameter "EvaporatioRate" var: evaporation min: 0.001 max: 1.0 step: 0.001;

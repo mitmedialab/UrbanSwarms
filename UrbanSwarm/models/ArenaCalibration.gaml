@@ -19,7 +19,7 @@ grid arena cell_width:50 cell_height:50  {
 	  }	
 	}
 	
-experiment UrbanSwarms_Inititalization_State type: gui {
+experiment ArenaCalibration type: gui {
 	output {
 		display objects_display_init type:opengl toolbar: false rotate: 90 background: #black fullscreen:1 draw_env: true 
 		{	
