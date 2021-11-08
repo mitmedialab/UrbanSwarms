@@ -1,8 +1,5 @@
 /***
-* Name: Parameters
-* Author: Arno
-* Description: 
-* Tags: Tag1, Tag2, TagN
+* Name: Parameters file
 ***/
 
 model Parameters
@@ -12,7 +9,7 @@ global{
 	//-------------------------------------------------------------My Parameters----------------------------------------------------------------------------------
 	
 	bool truckOrRobots <- true parameter: "Truck or Robot: " category: "Initial"; //0= truck, 1 =robot
-	int robotNum <- 25 min: 1 max: 100 parameter: "Nb Vehicle:" category: "Initial";		
+	int robotNum <- 1 min: 1 max: 100 parameter: "Nb Vehicle:" category: "Initial";		
 	
 	//Makes the cycles longer
 	float minimum_cycle_duration <- 0.02;
@@ -30,7 +27,7 @@ global{
 	int stop_sim_day <- 1 parameter: "The number of days to stop the simulation after: " category: "Initial";
 	
 	//Scale by which the population is
-	int pop_scale <- 1 parameter: "Population Control (Higher # => Less people):" category: "People";
+	int pop_scale <- 10 parameter: "Population Control (Higher # => Less people):" category: "People";
 	
 	//Furthest a person can be away but still put trash in a bin
 	float max_distance <- 30.0#m min:1.0 #m max: 75.0 #m parameter: "Barrel Range:" category: "Litter Barrels";

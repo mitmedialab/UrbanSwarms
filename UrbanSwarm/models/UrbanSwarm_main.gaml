@@ -602,7 +602,7 @@ species road  schedules: []{
 	}
 }
 
-species table{
+species table{ 
 	aspect base {
 		draw shape empty:true border:rgb(75,75,75) color: rgb(75,75,75) ;
 	}	
@@ -627,7 +627,7 @@ species barrel parent:Litter{
 	}
 }
 
-experiment selfOrganizedGarbageCollectionVisual type: gui {
+experiment selfOrganizedGarbageCollection type: gui {
 	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1;
 	parameter "AdditionalTrashBin" var: additionalTrashBin min: 0 max: 100 step: 2;
 	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0.01 max: 0.01 step: 0.1;
@@ -663,79 +663,5 @@ experiment selfOrganizedGarbageCollectionVisual type: gui {
     	}	
 	}
 }
-
-
-experiment pheromoneExploitationGarbageCollectionVisual type: gui {
-	
-	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1 init:2;
-	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0.0 max: 0.5 step: 0.1 init:0.03;
-	parameter "EvaporatioRate" var: evaporation min: 0.01 max: 1.0 step: 0.01 init:0.3;
-	parameter "exploitationRate" var: exploratoryRate min: 0.0 max: 1.0 step: 0.1 init:0.99;
-	parameter "maxTrashPerBin" var: maxTrash min: 1.0 max: 120.0 step: 1.0 init:121.0;
-	parameter "carriableTrashAmount" var: carriableTrashAmount min: 3 max: 30 step: 3 init:12;
-		
-	output {
-		display city_display type:opengl draw_env:false autosave:false background:rgb(0,0,15) {	
-			
-			
-			species road aspect:base refresh:false;
-			species building aspect: borderflat refresh:false;
-			species pheromoneRoad aspect: pheromoneLevel ;
-			species people aspect:scale transparency:0.5;
-			species tagRFID aspect: realistic ;
-			species trashBin aspect: realistic ;
-			species robot aspect: realistic trace:traceLength fading:true;
-			species deposit aspect: realistic transparency:0.8;	
-			//species truck aspect: base ;
-			
-			
-	   		overlay position: { world.shape.width*0.85, world.shape.height*0.85 } size: { 240 #px, 680 #px } background: # white transparency: 1.0 border: #black 
-        	{
-		  		map<string,rgb> list_of_existing_species <- map<string,rgb>(["RFID"::#green,"Deposit"::#blue,"Robot"::#cyan,"TrashBin"::#orange]);
-            	loop i from: 0 to: length(list_of_existing_species) -1 {
-             	//draw list_of_existing_species.keys[i] at: { 40#px, (i+1)*20#px } color: #black font: font("Helvetica", 18, #bold) perspective:false;
-              	//draw circle(10#px) at: { 20#px, (i+1)*20#px } color: list_of_existing_species.values[i]  border: #white; 			
-		  	} 				
-		}
-    	}	
-	}
-}
-
-experiment randomExplorationGarbageCollectionVisual type: gui {
-	
-	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1 init:2;
-	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0 max: 0.5 step: 0.1 init:0;
-	parameter "EvaporatioRate" var: evaporation min: 0.01 max: 1.0 step: 0.01 init:1;
-	parameter "exploitationRate" var: exploratoryRate min: 0.0 max: 1 step: 0.1 init:0.1;
-	parameter "maxTrashPerBin" var: maxTrash min: 1.0 max: 120.0 step: 1.0 init:121;
-	parameter "carriableTrashAmount" var: carriableTrashAmount min: 3 max: 30 step: 3 init:12;
-		
-	output {
-		display city_display type:opengl draw_env:false autosave:false background:rgb(0,0,15) {	
-			
-			
-			species road aspect:base refresh:false;
-			species building aspect: borderflat refresh:false;
-			species pheromoneRoad aspect: pheromoneLevel ;
-			species people aspect:scale transparency:0.5;
-			species tagRFID aspect: realistic ;
-			species trashBin aspect: realistic ;
-			species robot aspect: realistic trace:traceLength fading:true;
-			species deposit aspect: realistic transparency:0.8;	
-			//species truck aspect: base ;
-			
-			
-	   		overlay position: { world.shape.width*0.85, world.shape.height*0.85 } size: { 240 #px, 680 #px } background: # white transparency: 1.0 border: #black 
-        	{
-		  		map<string,rgb> list_of_existing_species <- map<string,rgb>(["RFID"::#green,"Deposit"::#blue,"Robot"::#cyan,"TrashBin"::#orange]);
-            	loop i from: 0 to: length(list_of_existing_species) -1 {
-             	//draw list_of_existing_species.keys[i] at: { 40#px, (i+1)*20#px } color: #black font: font("Helvetica", 18, #bold) perspective:false;
-              	//draw circle(10#px) at: { 20#px, (i+1)*20#px } color: list_of_existing_species.values[i]  border: #white; 			
-		  	} 				
-		}
-    	}	
-	}
-}
-
 
 

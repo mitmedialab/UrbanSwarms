@@ -1,11 +1,8 @@
 /***
-* Name: TangibleUrbanSwarm
-* Author: Arnaud Grignard
-* Description: 
-* Tags: Tag1, Tag2, TagN
+* Name: PathPlannerExample
 ***/
 
-model TangibleUrbanSwarm
+model PathPlannerExample
 
 global {
 	int port <- 9877;
@@ -77,7 +74,7 @@ species goal {
 	}
 }
 
-experiment urbanGrid type: gui {
+experiment PathPlannerExample type: gui {
 	float minimum_cycle_duration<-0.05;
 	output {
 		display objects_display type:opengl{
