@@ -177,7 +177,7 @@ species truck skills:[moving] {
 }
 
 
-species robot skills:[moving] {
+species robot skills:[network, moving] {
 	point target;
 	path my_path; 
 	point source;
@@ -372,5 +372,16 @@ species robot skills:[moving] {
 		}
 	}
 	
+		reflex send_udp_info {
+		do send to: "epuck" contents: name + " heading: " + self.heading;
+	}
+	
+		reflex fetch when:has_more_message() {
+		loop while:has_more_message()
+		{
+			message s <- fetch_message();
+			write string(s.contents);
+		}
+		}	
 }
 

@@ -305,6 +305,13 @@ global {
 				pheromoneMark <- 0.0;
 				batteryLife <- rnd(maxBatteryLife);
 				speedDist <- maxSpeedDist;
+				
+			    //UDP SERVER FOR EACH ROBOT
+				do connect to: "localhost" protocol: "udp_server" port: 9820;
+				
+				//UDP CLIENT FOR EACH ROBOT
+				do connect to: "localhost" protocol: "udp_emitter" port: 9820 with_name: "epuck";
+								
 			}		
 		}else{
 			create truck number:robotNum{	
