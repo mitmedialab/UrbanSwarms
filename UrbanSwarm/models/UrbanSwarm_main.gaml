@@ -1,10 +1,8 @@
 /**
-* Name: CityScope Kendall
-* Author: Arnaud Grignard
-* Description: Agent-based model running on the CityScope Platform. 
+* Name: UrbanSwarms
 */
 
-model CityScope
+model UrbanSwarms
 
 import "./../models/Parameters.gaml"
 import "./../models/LitterBins.gaml"
@@ -201,9 +199,7 @@ global {
 	    
 	    //Removes all of the barrels outside the boundaries
 	    do getVolpeBarrels();
-	    
-	    //------------------------------------------SWARMBOT SPECIES-------------------------------------------------------------			
-		
+	    	
 		// ----------------------------The Roads (459 and 462 are broken)-------------------------------------
 		create pheromoneRoad from: roads_shapefile{
 			pheromone <- 0.0;
@@ -356,9 +352,7 @@ global {
 		}
 		
 			
-		create controller;
-		//---------------------------------------END SWARMBOT SPECIES-------------------------------------------------------------
-
+		//create controller;
 	}
 	
 	action initPop{
@@ -486,38 +480,6 @@ global {
 		}		
 	}
 	
-   /* reflex add_static_objects_to_kml when:cycle=1{
-		
-		ask road {
-			//add a geometry to the kml : add_geometry(kml, geometry, line width, border color, color)
-			kml_export <- kml_export add_geometry (shape,1.0,#black,color);	
-			
-			//it is also possible to specify the begin date (current_date by default) and the ending date (current_date + step by default)
-			//kml_export <- kml_export add_geometry (shape,2.0,#black,color, #now, #now plus_hours 1);	
-		}
-		ask building {
-			//add an icon to the kml: add_icon(kml,location,scale,orientation,file) ... like for add_geometry, it is also possible to specify the begin/end date
-			kml_export <- kml_export add_geometry (shape,1.0,color,color);
-		}
-		
-		ask trashBin{
-			kml_export <- kml_export add_geometry (circle(10),1.0,color,color);
-		}
-				
-
-		
-	}
-	
-	reflex add_dynamic_objects_to_kml{
-		ask truck{
-			kml_export <- kml_export add_geometry (circle(10),1.0,#red,#red, current_date, current_date + 30);
-		}
-	}
-	
-	reflex end_sim when: cycle = 100 {
-		// export the kml to a kmz/kml file
-		//save kml_export to:"result.kmz" type:"kmz";
-	}*/
 		
 	action generateSquarePop(int nb, string _scale){
 		create people number:nb	{
@@ -657,7 +619,6 @@ experiment selfOrganizedGarbageCollection type: gui {
 			species robot aspect: realistic trace:traceLength fading:true;
 			species deposit aspect: realistic transparency:0.8;	
 			//species truck aspect: base ;
-			
 			
 	   		overlay position: { world.shape.width*0.85, world.shape.height*0.85 } size: { 240 #px, 680 #px } background: # white transparency: 1.0 border: #black 
         	{

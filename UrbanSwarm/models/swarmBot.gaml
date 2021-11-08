@@ -26,14 +26,14 @@ global{
 }
 
 
-species controller{
- bool performanceController<-false;	
- reflex performanceControl when:(performanceController=true){
- 	trashPerTime <- sum(list(trashBin) collect each.trash);
- 	fullTrashBin <- length (trashBin where (each.trash>maxTrash)); 	
-	save (string(seed) + "," + string(cycle) + "," + string(trashPerTime) + "," + string(fullTrashBin)) to: "./log/" + string(robotNum) + "-" + string(evaporation) + "-" + string(exploratoryRate) + "-" + string(carriableTrashAmount) + "-" + string(depositNum) + "perfHist" + string(randomID) + ".txt" type: "text" rewrite: false;	
-	}
-}
+//species controller{
+// bool performanceController<-false;	
+// reflex performanceControl when:(performanceController=true){
+// 	trashPerTime <- sum(list(trashBin) collect each.trash);
+// 	fullTrashBin <- length (trashBin where (each.trash>maxTrash)); 	
+//	save (string(seed) + "," + string(cycle) + "," + string(trashPerTime) + "," + string(fullTrashBin)) to: "./log/" + string(robotNum) + "-" + string(evaporation) + "-" + string(exploratoryRate) + "-" + string(carriableTrashAmount) + "-" + string(depositNum) + "perfHist" + string(randomID) + ".txt" type: "text" rewrite: false;	
+//	}
+//}
 
 species pheromoneRoad {
 	float pheromone;
@@ -373,7 +373,7 @@ species robot skills:[network, moving] {
 	}
 	
 		reflex send_udp_info {
-		do send to: "epuck" contents: name + " heading: " + self.heading;
+		do send to: "epuck" contents: last(name) + ',' + self.heading + ',' + self.speed;
 	}
 	
 		reflex fetch when:has_more_message() {
