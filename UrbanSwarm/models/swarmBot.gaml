@@ -24,15 +24,6 @@ global{
 }
 
 
-//species controller{
-// bool performanceController<-false;	
-// reflex performanceControl when:(performanceController=true){
-// 	trashPerTime <- sum(list(trashBin) collect each.trash);
-// 	fullTrashBin <- length (trashBin where (each.trash>maxTrash)); 	
-//	save (string(seed) + "," + string(cycle) + "," + string(trashPerTime) + "," + string(fullTrashBin)) to: "./log/" + string(robotNum) + "-" + string(evaporation) + "-" + string(exploratoryRate) + "-" + string(carriableTrashAmount) + "-" + string(depositNum) + "perfHist" + string(randomID) + ".txt" type: "text" rewrite: false;	
-//	}
-//}
-
 species pheromoneRoad {
 	float pheromone;
 	int lastUpdate;

@@ -7,7 +7,7 @@ model ArenaCalibration
 
 global{
 	// Arena-related variables
-	geometry shape<-rectangle(250,400);
+	geometry shape<-rectangle(250,300);
 }
 
 /* Insert your model definition here */

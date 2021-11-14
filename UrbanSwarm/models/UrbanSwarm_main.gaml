@@ -36,9 +36,9 @@ global {
 	float to_dinner_prob <- 0.1 min:0.0 max: 1.0 parameter: "To Dinner:" category: "Probability";
 	float after_dinner_prob <- 0.6 min:0.0 max: 1.0 parameter: "After Dinner:" category: "Probability";
 	
-	//string cityGISFolder <- "./../includes/City/GeneratedGIS";
 	string cityGISFolder <- "./../includes/City/volpe";
-	// GIS FILE //
+	
+	// GIS FILES //
 	file litter_shapefile <- file(cityGISFolder+"/UrbanSwarm/DPW_LitterBarrels.shp");
 	file bound_shapefile <- file(cityGISFolder+"/Bounds.shp");
 	file buildings_shapefile <- file(cityGISFolder+"/Buildings.shp");
@@ -219,21 +219,21 @@ global {
 		matrix allPairs <- all_pairs_shortest_path (roadNetwork);	
 		
 		// --------------------------------------------Trash Bins--------------------------------------------
-		create trashBin from: litter_shapefile{ 	
+		create trashBin from: 5 first litter_shapefile{ 	
 			trash <- 0.0;
 			type <- "litter";
 			decreaseTrashAmount<-false;
 			shape<-circle(10);							
 		}
 		
-		loop i from: 0 to: length(amenityBin)-1{
-			create trashBin{
-				location <- amenityBin[i].location;
-				trash <- 0.0;
-				type <- "amenityBin";
-				decreaseTrashAmount<-false;
-			}
-		}
+//		loop i from: 0 to: length(amenityBin)-1{
+//			create trashBin{
+//				location <- amenityBin[i].location;
+//				trash <- 0.0;
+//				type <- "amenityBin";
+//				decreaseTrashAmount<-false;
+//			}
+//		}
 
 		// -------------------------------------Location of the Deposits----------------------------------------
 		//K-Means
@@ -350,9 +350,6 @@ global {
 								
 			}
 		}
-		
-			
-		//create controller;
 	}
 	
 	action initPop{
