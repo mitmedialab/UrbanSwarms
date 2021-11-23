@@ -485,7 +485,7 @@ species people skills:[moving] parent:holdingTrash {
 	aspect scale{
 	if(toggle1 !=1){
       if(!fromTheGrid){	
-		  draw circle(4#m) color: color_map[scale];
+		  draw circle(8#m) color: color_map[scale];
 		   
 	  }else{
 		  draw square(8#m) color: color_map[scale];  
@@ -503,7 +503,7 @@ species people skills:[moving] parent:holdingTrash {
 	
 	aspect trajectory{
 		if(curMovingMode = "travelling"){
-			draw circle(4#m) color: color_map[scale];
+			draw circle(10#m) color: color_map[scale];
 		}
 		
 	}

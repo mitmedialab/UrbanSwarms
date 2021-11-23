@@ -43,7 +43,7 @@ species deposit{
 	}
 	aspect realistic{
 		//draw cylinder(50,50)-cylinder(20,50) color:rgb(107,171,158);
-		draw circle(50) color:rgb(107,171,158);
+		draw circle(50) color:rgb(107,171,158) empty:true;
 	}
 }
 
@@ -184,12 +184,22 @@ species robot skills:[network, moving] {
 	
 
     aspect realistic {
-		draw triangle(15)  color: rgb(25*1.1,25*1.6,200) rotate: heading + 90;
+		draw triangle(25)  color: rgb(25*1.1,25*1.6,200) rotate: heading + 90;
 		if lowBattery{
-			draw triangle(15) color: #darkred rotate: heading + 90;
+			draw triangle(25) color: #darkred rotate: heading + 90;
 		}
 		if (carrying){
-			draw triangle(15) color: rgb(175*1.1,175*1.6,200) rotate: heading + 90;
+			draw triangle(25) color: rgb(175*1.1,175*1.6,200) rotate: heading + 90;
+		}
+	}
+	
+	aspect projector {
+		draw circle(35) color:#lightblue rotate: heading + 90 empty:true;
+		if lowBattery{
+			draw circle(35) color:#red rotate: heading + 90;
+		}
+		if (carrying){
+			draw circle(35) color:#yellow rotate: heading + 90;
 		}
 	}
 
@@ -362,7 +372,7 @@ species robot skills:[network, moving] {
 	}
 	
 		reflex send_udp_info {
-		do send to: "epuck" contents: last(name) + ',' + self.heading + ',' + self.speed;
+		do send to: "epuck" contents: last(name + 20) + ',' + self.heading + ',' + self.speed;
 	}
 	
 		reflex fetch when:has_more_message() {

@@ -43,7 +43,7 @@ global {
 	file bound_shapefile <- file(cityGISFolder+"/Bounds.shp");
 	file buildings_shapefile <- file(cityGISFolder+"/Buildings.shp");
 	file roads_shapefile <- file(cityGISFolder+"/Roads.shp");
-	file amenities_shapefile  <- file(cityGISFolder+"/Amenities.shp");
+	file amenities_shapefile  <- file(cityGISFolder+"/amenities.shp");
 	file table_bound_shapefile <- file(cityGISFolder+"/table_bounds.shp");
 	file imageRaster <- file('./../images/gama_black.png') ;
 	geometry shape <- envelope(bound_shapefile);
@@ -70,7 +70,7 @@ global {
 	list<float> current_density_array;
 	int toggle1;
 	map<int,list> citymatrix_map_settings<- [-1::["Green","Green"],0::["R","L"],1::["R","M"],2::["R","S"],3::["O","L"],4::["O","M"],5::["O","S"],6::["A","Road"],7::["A","Plaza"],8::["Pa","Park"],9::["P","Parking"]];	
-	map<string,rgb> color_map<- ["R"::#white, "O"::#gray,"S"::#gamablue, "M"::#gamaorange, "L"::#gamared, "Green"::#green, "Plaza"::#white, "Road"::#black,"Park"::#black,"Parking"::rgb(50,50,50)]; 
+	map<string,rgb> color_map<- ["R"::rgb(43,43,43), "O"::rgb(27,27,27),"S"::#gamablue, "M"::#gamaorange, "L"::#gamared, "Green"::#green, "Plaza"::#white, "Road"::#black,"Park"::#black,"Parking"::rgb(50,50,50)]; 
 	list scale_string<- ["S", "M", "L"];
 	list usage_string<- ["R", "O"]; 
 	list density_map<- [89,55,15,30,18,5]; //Use for Volpe Site (Could be change for each city)
@@ -551,7 +551,6 @@ species building schedules: [] {
 			if(usage="O"){
 			  draw shape color: color_map[scale];
 			}
-			
 		}
 		if(toggle1=3){
 			if(usage="R"){
@@ -604,9 +603,8 @@ experiment selfOrganizedGarbageCollection type: gui {
 	parameter "carriableTrashAmount" var: carriableTrashAmount min: 1 max: 50 step: 5;
 		
 	output {
-		display city_display type:opengl draw_env:false autosave:false background:rgb(0,0,15) {	
-			
-			
+		display city_display type:opengl draw_env:false autosave:false background:#black 
+		{			
 			species road aspect:base refresh:false;
 			species building aspect: borderflat refresh:false;
 			species pheromoneRoad aspect: pheromoneLevel ;
@@ -618,6 +616,43 @@ experiment selfOrganizedGarbageCollection type: gui {
 			//species truck aspect: base ;
 			
 	   		overlay position: { world.shape.width*0.85, world.shape.height*0.85 } size: { 240 #px, 680 #px } background: # white transparency: 1.0 border: #black 
+        	{
+		  		map<string,rgb> list_of_existing_species <- map<string,rgb>(["RFID"::#green,"Deposit"::#blue,"Robot"::#cyan,"TrashBin"::#orange]);
+            	loop i from: 0 to: length(list_of_existing_species) -1 {
+             	//draw list_of_existing_species.keys[i] at: { 40#px, (i+1)*20#px } color: #black font: font("Helvetica", 18, #bold) perspective:false;
+              	//draw circle(10#px) at: { 20#px, (i+1)*20#px } color: list_of_existing_species.values[i]  border: #white; 			
+		  	} 				
+		}
+    	}	
+	}
+}
+
+
+experiment selfOrganizedGarbageCollection_projector type: gui {
+	parameter "NumberOfDeposits" var: depositNum min: 1 max: 5 step: 1 init:1;
+	parameter "AdditionalTrashBin" var: additionalTrashBin min: 0 max: 100 step: 2;
+	parameter "PheromoneMarkIntensity" var: singlePheromoneMark min: 0.01 max: 0.01 step: 0.1;
+	parameter "EvaporatioRate" var: evaporation min: 0.001 max: 1.0 step: 0.001;
+	parameter "DiffusionRate" var: diffusion min: 0.001 max: 1.0 step: 0.001;
+	parameter "exploratoryRate" var: exploratoryRate min: 0.0 max: 0.05 step: 1.0;
+	parameter "maxTrashPerBin" var: maxTrash min: 1.0 max: 50.0 step: 1.0;
+	parameter "carriableTrashAmount" var: carriableTrashAmount min: 1 max: 50 step: 5;
+		
+	output {
+		display city_display type:opengl draw_env:false autosave:false background:#black 
+		camera_location: {1100.1511,917.4679,3164.084} camera_target: {1100.1511,917.4126,8.0E-4} camera_orientation: {0.0,1.0,0.0}
+		toolbar: false fullscreen:1 
+		keystone: [{-0.22588818525582727,-0.2094179817203352,0.0},{-0.41671690155040386,1.2543715798906692,0.0},{1.1947275240889739,1.234635853864672,0.0},{1.089574661080928,-0.1403429406293346,0.0}] 
+		{	
+			species road aspect:base refresh:false;
+			species building aspect: usage;
+			species pheromoneRoad aspect: pheromoneLevel ;
+			species people aspect: scale transparency:0;
+			species tagRFID aspect: realistic ;
+			species trashBin aspect: realistic ;
+			species deposit aspect: realistic transparency:0.25;	
+			species robot aspect: projector;			
+	   		overlay position: { world.shape.width*0.85, world.shape.height*0.85 } size: { 480 #px, 680 #px } background: # white transparency: 1.0 border: #black 
         	{
 		  		map<string,rgb> list_of_existing_species <- map<string,rgb>(["RFID"::#green,"Deposit"::#blue,"Robot"::#cyan,"TrashBin"::#orange]);
             	loop i from: 0 to: length(list_of_existing_species) -1 {
