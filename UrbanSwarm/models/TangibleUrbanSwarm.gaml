@@ -1,14 +1,17 @@
 /***
-* Name: PathPlannerExample
+* Name: TangibleUrbanSwarm
+* Author: Arnaud Grignard
+* Description: 
+* Tags: Tag1, Tag2, TagN
 ***/
 
-model PathPlannerExample
+model TangibleUrbanSwarm
 
 global {
 	int port <- 9877;
 	string url <- "localhost";
-	string algorithm <- "A*" among: ["A*", "Dijkstra", "JPS", "BF"] ;
-	int neighborhood_type <- 8 among:[4,8] ;	
+	string algorithm <- "A*" among: ["A*", "Dijkstra", "JPS", "BF"];
+	int neighborhood_type <- 8 among:[4,8];	
 	
 	geometry shape<-rectangle(150,100);
 	init {
@@ -74,11 +77,11 @@ species goal {
 	}
 }
 
-experiment PathPlannerExample type: gui {
+experiment urbanGrid type: gui {
 	float minimum_cycle_duration<-0.05;
 	output {
 		display objects_display type:opengl{
-			grid cell border: #black;
+			grid cell ;
 			species virtualAgent aspect: default ;
 			species PhysicalAgent aspect:default;
 			species goal aspect: default ;

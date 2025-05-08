@@ -43,7 +43,7 @@ species deposit{
 	}
 	aspect realistic{
 		//draw cylinder(50,50)-cylinder(20,50) color:rgb(107,171,158);
-		draw circle(50) color:rgb(107,171,158) empty:true;
+		draw circle(50) color:rgb(107,171,158) wireframe:true;
 	}
 }
 
@@ -154,7 +154,7 @@ species truck skills:[moving] {
 		list<trashBin> closeTrashBin <- trashBin at_distance 50;
 	
 			ask closeTrashBin{ 	
-						self.trash <- 0;	
+						self.trash <- 0.0;	
 						self.decreaseTrashAmount <- true;	
 			}	
 		}
@@ -194,7 +194,7 @@ species robot skills:[network, moving] {
 	}
 	
 	aspect projector {
-		draw circle(35) color:#lightblue rotate: heading + 90 empty:true;
+		draw circle(35) color:#lightblue rotate: heading + 90 wireframe:true;
 		if lowBattery{
 			draw circle(35) color:#red rotate: heading + 90;
 		}
@@ -253,7 +253,7 @@ species robot skills:[network, moving] {
 	}
 	
 	reflex searching when: (!carrying and !lowBattery){		
-		my_path <- self goto (on:roadNetwork, target:target, speed:speedDist, return_path: true);		
+		my_path <- goto (on:roadNetwork, target:target, speed:speedDist, return_path: true);		
 		
 		if (target != location) { 
 			//collision avoidance time
@@ -329,7 +329,7 @@ species robot skills:[network, moving] {
 	}
 
 	reflex depositing when: (carrying or lowBattery){
-		my_path <- self goto (on:roadNetwork, target:target, speed:speedDist, return_path: true);
+		my_path <- goto (on:roadNetwork, target:target, speed:speedDist, return_path: true);
 		
 		if (target != location) {
 			//collision avoidance time
@@ -379,7 +379,7 @@ species robot skills:[network, moving] {
 		loop while:has_more_message()
 		{
 			message s <- fetch_message();
-			write string(s.contents);
+			//write string(s.contents);
 		}
 		}	
 }

@@ -21,7 +21,7 @@ grid arena cell_width:50 cell_height:50  {
 	
 experiment ArenaCalibration type: gui {
 	output {
-		display objects_display_init type:opengl toolbar: false rotate: 90 background: #black fullscreen:1 draw_env: true keystone: [{-0.22588818525582727,-0.2094179817203352,0.0},{-0.41671690155040386,1.2543715798906692,0.0},{1.1947275240889739,1.234635853864672,0.0},{1.089574661080928,-0.1403429406293346,0.0}] 
+		display objects_display_init type:opengl toolbar: false  background: #black fullscreen:1 axes: true keystone: [{-0.22588818525582727,-0.2094179817203352,0.0},{-0.41671690155040386,1.2543715798906692,0.0},{1.1947275240889739,1.234635853864672,0.0},{1.089574661080928,-0.1403429406293346,0.0}] 
 		{	
 			species arena aspect: projector position: {0,0,-0.001};	
 		}

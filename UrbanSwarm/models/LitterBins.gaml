@@ -5,7 +5,7 @@
 * Tags: Tag1, Tag2, TagN
 */
 
-model LitterBins
+model LitterBins 
 
 import "./../models/UrbanSwarm_main.gaml"
 
@@ -28,7 +28,7 @@ species amenity parent:building {
 	int y;
 	float size;
 	
-	float barrel_amount <- 0;
+	float barrel_amount <- 0.0;
 	
 	int am_num <- 0;
 	amenityBin a;
@@ -44,7 +44,7 @@ species amenity parent:building {
 	//This one fills the trash bins up around it
 	reflex fillTrashAround when: (option = 1){
 		if (current_count[am_num] != 0) {
-			float barrel_count <- 0;
+			float barrel_count <- 0.0;
 			ask barrel at_distance(amenity_radius) {
 				if (is_full() = false) {
 					barrel_count <- barrel_count + 1;
@@ -101,7 +101,7 @@ species amenity parent:building {
 		}
 		else{
 			if (toggle1 = 6){
-			  draw circle(size) empty:true border:#white color: #white;
+			  draw circle(size) wireframe:true border:#white color: #white;
 		      draw circle(size) color: rgb(255,255,255,125);	
 			}
 		}
@@ -110,7 +110,7 @@ species amenity parent:building {
     aspect onTable {
 		if(!fromGrid){
 			if (toggle1 =  6){
-			  draw circle(size) empty:true border:#white color: #white;
+			  draw circle(size) wireframe:true border:#white color: #white;
 		      draw circle(size) color: rgb(255,255,255,125);	
 			}
 		}
@@ -146,7 +146,7 @@ species Litter {
 	}
 	
 	int get_trash {
-		return total_trash;
+		return int(total_trash);
 	}
 	
 	reflex getPerson when:(is_full() = false){
@@ -169,7 +169,7 @@ species amenityBin {
 	
 	aspect base {
 		if (option = 1) {
-			draw circle(amenity_radius) color: rgb(255,255,255) empty:true;
+			draw circle(amenity_radius) color: rgb(255,255,255) wireframe:true;
 		} else if (option = 2) {
 			do update_color;
 			draw square(50 #m) color: circle_color;
@@ -211,7 +211,7 @@ species holdingTrash {
 	//This is the old version
 	//The amount of trash that a person has (resets every time a person drops off trash)
 	//float trash_amount<-rnd(min_trash_can_hold, max_trash_can_hold);
-	float trash_amount <- 0;
+	float trash_amount <- 0.0;
 	
 	bool just_arrived<-true;
 	
@@ -219,7 +219,7 @@ species holdingTrash {
 	float total_trash <- trash_per_day;
 	
 	//Number of times during the day that the person will drop trash
-	float trash_drop_count <- 0;
+	float trash_drop_count <- 0.0;
 	
 	//An array of the times in which the person will drop trash
 	list<bool> drop_at_time <- [false, false, false, false, false];
@@ -243,7 +243,7 @@ species holdingTrash {
 	action generate_trash {
 		//Reset the variables
 		drop_at_time <- [false, false, false, false, false];
-		trash_drop_count <- 0;
+		trash_drop_count <- 0.0;
 		
 		//Caculates at what times the person will drop trash. Also ensures that they drop trash at some point
 		loop while:(trash_drop_count = 0) {
@@ -283,12 +283,12 @@ species holdingTrash {
 	}
 	
 	action reset{
-		trashTime <- time;
+		trashTime <- int(time);
 		//Old version
 		//trash_amount<-rnd(min_trash_can_hold, max_trash_can_hold);
 		
 		//New version
-		trash_amount <- 0;
+		trash_amount <- 0.0;
 	}
 	
 	//This is for amenities
@@ -365,7 +365,7 @@ species people skills:[moving] parent:holdingTrash {
 			if (drop_at_time[0] = true) {
 				trash_amount <- total_trash/trash_drop_count;
 			} else {
-				trash_amount <- 0;
+				trash_amount <- 0.0;
 			}
 			
 			//Resets this value for the next day
@@ -386,7 +386,7 @@ species people skills:[moving] parent:holdingTrash {
 			if (drop_at_time[1] = true) {
 				trash_amount <- total_trash/trash_drop_count;
 			} else {
-				trash_amount <- 0;
+				trash_amount <- 0.0;
 			}
 			
 	    } 
@@ -405,7 +405,7 @@ species people skills:[moving] parent:holdingTrash {
 			if (drop_at_time[2] = true) {
 				trash_amount <- total_trash/trash_drop_count;
 			} else {
-				trash_amount <- 0;
+				trash_amount <- 0.0;
 			}
 	    } 
 	    if(current_hour > time_to_dinner and current_hour < time_to_sleep  and objective = "reworking"){
@@ -422,7 +422,7 @@ species people skills:[moving] parent:holdingTrash {
 			if (drop_at_time[3] = true) {
 				trash_amount <- total_trash/trash_drop_count;
 			} else {
-				trash_amount <- 0;
+				trash_amount <- 0.0;
 			}
 	    } 
 	
@@ -440,7 +440,7 @@ species people skills:[moving] parent:holdingTrash {
 			if (drop_at_time[4] = true) {
 				trash_amount <- total_trash/trash_drop_count;
 			} else {
-				trash_amount <- 0;
+				trash_amount <- 0.0;
 			}
 	    } 
 		
